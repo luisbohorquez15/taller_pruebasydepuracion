@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TestSendgridMail extends Mailable
+class NewCommentNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,13 +21,14 @@ class TestSendgridMail extends Mailable
     {
         //
     }
+
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test Sendgrid Mail',
+            subject: 'Nuevo comentario en tu publicación',
         );
     }
 
@@ -37,7 +38,7 @@ class TestSendgridMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            htmlString: '<h1>Test</h1><p>Este correo fue enviado desde Laravel Sail usando SendGrid.</p>'
+            htmlString: "<p>Tienes un nuevo comentario: {$this->comment->body}</p>",
         );
     }
 

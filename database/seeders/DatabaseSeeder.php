@@ -3,46 +3,37 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Evento;
+use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin Global',
-            'email' => 'admin@eventhub.com',
+        // 1. Crear un usuario de prueba
+        $user = User::create([
+            'name' => 'Usuario Prueba',
+            'email' => 'admin@test.com',
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
 
-        $organizadorA = User::create([
-            'name' => 'Organizador A',
-            'email' => 'organizadorA@eventhub.com',
-            'password' => bcrypt('password'),
-            'role' => 'organizador',
+        // 2. Crear un post de prueba asociado al usuario
+        $post = Post::create([
+            'user_id' => $user->id,
+            'title' => 'Mi primer Post',
+            'content' => 'Este es el contenido del post de prueba.',
+            'is_published' => true,
         ]);
 
-        User::create([
-            'name' => 'Organizador B',
-            'email' => 'organizadorB@eventhub.com',
-            'password' => bcrypt('password'),
-            'role' => 'organizador',
-        ]);
-
-        User::create([
-            'name' => 'Asistente Juan',
-            'email' => 'asistente@eventhub.com',
-            'password' => bcrypt('password'),
-            'role' => 'asistente',
-        ]);
-
-        Evento::create([
-            'user_id' => $organizadorA->id,
-            'titulo' => 'Conferencia de Inteligencia Artificial',
-            'descripcion' => 'Evento sobre innovaciones en IA y Backend.',
-            'cupo_maximo' => 100,
-        ]);
+        // 3. (Opcional) Crear un comentario de prueba en el post
+        if (class_exists(\App\Models\Comment::class)) {
+            Comment::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+                'body' => 'Este es un comentario de prueba.',
+            ]);
+        }
     }
 }

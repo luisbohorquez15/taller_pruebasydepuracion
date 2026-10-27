@@ -1,3 +1,5 @@
+<img width="1903" height="910" alt="image" src="https://github.com/user-attachments/assets/6d51ee22-bd75-4295-8963-9dc0732163f0" />
+
 # MediCitas - Sistema de Gestión de Citas Médicas
 
 Este proyecto corresponde a la implementación del taller de **Pruebas y Depuración en Laravel** para la clínica MediCitas (UNAB).
